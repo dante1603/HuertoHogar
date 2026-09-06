@@ -10,11 +10,10 @@ Tecnologías:
 
 Estructura resumida:
 
-- páginas públicas
-- páginas administrativas
-- `assets/css`
-- `assets/js`
-- `assets/img`
+- `index.html`
+- `paginas/`
+- `administracion/`
+- `assets/`
 
 Cómo ejecutar:
 

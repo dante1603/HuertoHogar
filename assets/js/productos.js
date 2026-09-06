@@ -1,3 +1,5 @@
+const rutaAssets = window.location.pathname.includes("/paginas/") || window.location.pathname.includes("/administracion/") ? "../assets/" : "assets/";
+function rutaImagen(nombre) { return rutaAssets + "img/" + nombre; }
 window.productos = [
     {
         codigo: "FR001",
@@ -5,7 +7,7 @@ window.productos = [
         precio: 1200,
         stock: 150,
         origen: "Valle del Maule",
-        imagen: "assets/img/manzana.jpg"
+        imagen: rutaImagen("manzana.jpg")
     },
     {
         codigo: "FR002",
@@ -13,7 +15,7 @@ window.productos = [
         precio: 1000,
         stock: 200,
         origen: "Valencia",
-        imagen: "assets/img/naranja.jpg"
+        imagen: rutaImagen("naranja.jpg")
     },
     {
         codigo: "FR003",
@@ -21,7 +23,7 @@ window.productos = [
         precio: 800,
         stock: 250,
         origen: "Sudeste asiático",
-        imagen: "assets/img/platano.jpg"
+        imagen: rutaImagen("platano.jpg")
     },
     {
         codigo: "VE001",
@@ -29,7 +31,7 @@ window.productos = [
         precio: 900,
         stock: 120,
         origen: "Chile",
-        imagen: "assets/img/zanahoria.jpg"
+        imagen: rutaImagen("zanahoria.jpg")
     },
     {
         codigo: "VE002",
@@ -37,7 +39,7 @@ window.productos = [
         precio: 700,
         stock: 80,
         origen: "Chile",
-        imagen: "assets/img/espinaca.jpg"
+        imagen: rutaImagen("espinaca.jpg")
     },
     {
         codigo: "AB001",
@@ -45,7 +47,7 @@ window.productos = [
         precio: 3500,
         stock: 60,
         origen: "Chile",
-        imagen: "assets/img/miel.jpg"
+        imagen: rutaImagen("miel.jpg")
     },
     {
         codigo: "AB002",
@@ -53,7 +55,7 @@ window.productos = [
         precio: 1200,
         stock: 90,
         origen: "Chile",
-        imagen: "assets/img/leche.jpg"
+        imagen: rutaImagen("leche.jpg")
     },
     {
         codigo: "AB003",
@@ -61,7 +63,7 @@ window.productos = [
         precio: 2500,
         stock: 70,
         origen: "Chile",
-        imagen: "assets/img/quinua.jpg"
+        imagen: rutaImagen("quinua.jpg")
     },
     {
         codigo: "VE003",
@@ -69,7 +71,7 @@ window.productos = [
         precio: 1100,
         stock: 100,
         origen: "Chile",
-        imagen: "assets/img/pimiento.jpg"
+        imagen: rutaImagen("pimiento.jpg")
     }
 ];
 
@@ -151,7 +153,7 @@ function mostrarProductosAdmin() {
             <td>${producto.nombre}</td>
             <td>$${producto.precio}</td>
             <td>${producto.stock}</td>
-            <td><a href="admin-producto.html">Editar</a></td>
+            <td><a href="producto.html">Editar</a></td>
         </tr>`)
         .join("");
 }

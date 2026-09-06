@@ -44,7 +44,7 @@ function mostrarUsuarios() {
         });
 
         const accion = document.createElement("td");
-        accion.innerHTML = '<a href="admin-usuario.html">Editar</a>';
+        accion.innerHTML = '<a href="usuario.html">Editar</a>';
         fila.appendChild(accion);
         lista.appendChild(fila);
     });
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             guardarUsuario(Object.fromEntries(new FormData(adminUsuario)));
-            window.location.href = "admin-usuarios.html";
+            window.location.href = "usuarios.html";
         });
     }
 

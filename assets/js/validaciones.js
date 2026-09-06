@@ -23,6 +23,20 @@ function validarTexto(campo, etiqueta, maximo, requerido = true) {
     return mostrarError(campo, "");
 }
 
+function validarCodigoProducto(campo) {
+    const valor = campo.value.trim();
+
+    if (!valor) {
+        return mostrarError(campo, "El código es obligatorio.");
+    }
+
+    if (valor.length < 3) {
+        return mostrarError(campo, "El código debe tener al menos 3 caracteres.");
+    }
+
+    return mostrarError(campo, "");
+}
+
 function validarCorreo(correo) {
     return dominiosPermitidos.test(correo.trim());
 }
@@ -133,7 +147,7 @@ function validarFormulario(form) {
     }
 
     if (form.id === "form-producto") {
-        valido = validarTexto(form.elements.codigo, "El código", 20) && valido;
+        valido = validarCodigoProducto(form.elements.codigo) && valido;
         valido = validarTexto(form.elements.nombre, "El nombre", 100) && valido;
         valido = validarTexto(form.elements.descripcion, "La descripción", 500, false) && valido;
         valido = validarNumero(form.elements.precio, "El precio", true) && valido;
@@ -221,7 +235,7 @@ function validarCampo(form, campo) {
     }
 
     if (campo.name === "codigo") {
-        return validarTexto(campo, "El código", 20);
+        return validarCodigoProducto(campo);
     }
 
     if (campo.name === "categoria" || campo.name === "tipo") {
@@ -255,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         form.querySelectorAll("[name]").forEach((campo) => {
             campo.addEventListener("blur", () => validarCampo(form, campo));
 
-            if (["correo", "contrasena", "comentario", "precio", "stock", "stockCritico"].includes(campo.name)) {
+            if (["correo", "contrasena", "comentario", "precio", "stock", "stockCritico", "codigo"].includes(campo.name)) {
                 campo.addEventListener("input", () => {
                     validarCampo(form, campo);
                     actualizarMensajeStock();
@@ -264,6 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         form.addEventListener("submit", (evento) => {
+            if (form.id === "form-contacto") {
+                evento.preventDefault();
+
+                if (validarFormulario(form)) {
+                    document.querySelector("#mensaje-contacto").textContent = "Mensaje enviado correctamente.";
+                }
+
+                return;
+            }
+
             if (!validarFormulario(form)) {
                 evento.preventDefault();
             }
