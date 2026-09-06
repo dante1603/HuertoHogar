@@ -1,1 +1,130 @@
-* { box-sizing: border-box; } body { margin: 0; background: #f7f7f7; color: #222; font-family: Arial, sans-serif; line-height: 1.5; } header, footer { background: #2e7d32; color: white; padding: 1rem; } nav { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; } nav a, footer a { color: white; } main { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; min-height: 70vh; } h1, h2 { color: #2e7d32; } .inicio { text-align: center; } img { max-width: 100%; width: 220px; height: 150px; object-fit: cover; } .lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; } .producto, article { background: white; border: 1px solid #ccc; padding: 1rem; } .boton, button { display: inline-block; background: #2e7d32; color: white; border: 1px solid #2e7d32; padding: .55rem .8rem; cursor: pointer; text-decoration: none; } form { max-width: 600px; display: grid; gap: 1rem; } label { display: grid; gap: .25rem; } input, textarea, select { font: inherit; padding: .5rem; border: 1px solid #999; } textarea { min-height: 100px; } table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; } th, td { border: 1px solid #bbb; padding: .5rem; text-align: left; } .menu-admin { flex-direction: column; align-items: flex-start; }
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7f7;
+    color: #222;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+header,
+footer {
+    background: #2e7d32;
+    color: white;
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav a,
+footer a {
+    color: white;
+}
+
+main {
+    max-width: 1000px;
+    min-height: 70vh;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+h1,
+h2 {
+    color: #2e7d32;
+}
+
+.inicio {
+    text-align: center;
+}
+
+img {
+    width: 220px;
+    height: 150px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.lista,
+.destacados {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.producto,
+article {
+    padding: 1rem;
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.boton,
+button {
+    display: inline-block;
+    padding: .55rem .8rem;
+    background: #2e7d32;
+    color: white;
+    border: 1px solid #2e7d32;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+    max-width: 600px;
+}
+
+label {
+    display: grid;
+    gap: .25rem;
+}
+
+input,
+textarea,
+select {
+    padding: .5rem;
+    font: inherit;
+    border: 1px solid #999;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+.error {
+    min-height: 1.2em;
+    color: #b00020;
+    font-size: .9rem;
+}
+
+.mensaje {
+    min-height: 1.2em;
+}
+
+table {
+    width: 100%;
+    margin-top: 1rem;
+    background: white;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: .5rem;
+    text-align: left;
+    border: 1px solid #bbb;
+}
+
+.menu-admin {
+    flex-direction: column;
+    align-items: flex-start;
+}

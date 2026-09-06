@@ -1,1 +1,42 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Administrar usuarios</title><link rel="stylesheet" href="assets/css/styles.css"></head><body><header><nav><a href="admin.html">Administrador</a><a href="admin-productos.html">Productos</a><a href="admin-usuarios.html">Usuarios</a></nav></header><main><h1>Usuarios</h1><a class="boton" href="admin-usuario.html">Crear usuario</a><table><tr><th>RUN</th><th>Nombre</th><th>Correo</th><th>Tipo</th><th></th></tr><tr><td>12345678-9</td><td>Usuario ejemplo</td><td>usuario@gmail.com</td><td>Cliente</td><td><a href="admin-usuario.html">Editar</a></td></tr></table></main><footer>HuertoHogar</footer></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrar usuarios</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="admin.html">Administrador</a>
+            <a href="admin-productos.html">Productos</a>
+            <a href="admin-usuarios.html">Usuarios</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Usuarios</h1>
+        <a class="boton" href="admin-usuario.html">Crear usuario</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>RUN</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Tipo</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="lista-usuarios"></tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>HuertoHogar - Proyecto DSY1104</p>
+        <a href="contacto.html">Contacto</a>
+    </footer>
+
+    <script src="assets/js/usuarios.js"></script>
+</body>
+</html>

@@ -1,1 +1,42 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Administrar productos</title><link rel="stylesheet" href="assets/css/styles.css"></head><body><header><nav><a href="admin.html">Administrador</a><a href="admin-productos.html">Productos</a><a href="admin-usuarios.html">Usuarios</a></nav></header><main><h1>Productos</h1><a class="boton" href="admin-producto.html">Crear producto</a><table><tr><th>Código</th><th>Nombre</th><th>Precio</th><th>Stock</th><th></th></tr><tr><td>FR001</td><td>Manzanas Fuji</td><td>$1200</td><td>150</td><td><a href="admin-producto.html">Editar</a></td></tr></table></main><footer>HuertoHogar</footer></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrar productos</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="admin.html">Administrador</a>
+            <a href="admin-productos.html">Productos</a>
+            <a href="admin-usuarios.html">Usuarios</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Productos</h1>
+        <a class="boton" href="admin-producto.html">Crear producto</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="lista-productos-admin"></tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>HuertoHogar - Proyecto DSY1104</p>
+        <a href="contacto.html">Contacto</a>
+    </footer>
+
+    <script src="assets/js/productos.js"></script>
+</body>
+</html>
