@@ -77,6 +77,14 @@ button {
     text-decoration: none;
 }
 
+.producto .boton,
+.producto button {
+    border-radius: 14px;
+}
+.producto .boton {
+    margin-bottom: 5px;
+}
+
 form {
     display: grid;
     gap: 1rem;
