@@ -5,19 +5,18 @@ function mostrarError(campo, mensaje) {
 
     error.textContent = mensaje;
     campo.setAttribute("aria-invalid", mensaje ? "true" : "false");
-
     return !mensaje;
 }
 
-function validarTexto(campo, etiqueta, maximo, requerido = true) {
+function validarTexto(campo, maximo, requerido = true) {
     const valor = campo.value.trim();
 
     if (requerido && !valor) {
-        return mostrarError(campo, `${etiqueta} es obligatorio.`);
+        return mostrarError(campo, "Campo obligatorio.");
     }
 
     if (valor.length > maximo) {
-        return mostrarError(campo, `${etiqueta} debe tener máximo ${maximo} caracteres.`);
+        return mostrarError(campo, `Máximo ${maximo} caracteres.`);
     }
 
     return mostrarError(campo, "");
@@ -27,7 +26,7 @@ function validarCodigoProducto(campo) {
     const valor = campo.value.trim();
 
     if (!valor) {
-        return mostrarError(campo, "El código es obligatorio.");
+        return mostrarError(campo, "Campo obligatorio.");
     }
 
     if (valor.length < 3) {
@@ -38,26 +37,19 @@ function validarCodigoProducto(campo) {
 }
 
 function validarCorreo(correo) {
-    return dominiosPermitidos.test(correo.trim());
+    const valor = correo.trim();
+    return valor.length <= 100 && dominiosPermitidos.test(valor);
 }
 
 function validarCorreoCampo(campo, requerido = true) {
     const valor = campo.value.trim();
 
-    if (!valor && !requerido) {
-        return mostrarError(campo, "");
-    }
-
     if (!valor) {
-        return mostrarError(campo, "El correo es obligatorio.");
-    }
-
-    if (valor.length > 100) {
-        return mostrarError(campo, "El correo debe tener máximo 100 caracteres.");
+        return requerido ? mostrarError(campo, "Campo obligatorio.") : mostrarError(campo, "");
     }
 
     if (!validarCorreo(valor)) {
-        return mostrarError(campo, "Usa un correo @duoc.cl, @profesor.duoc.cl o @gmail.com.");
+        return mostrarError(campo, "Correo no válido.");
     }
 
     return mostrarError(campo, "");
@@ -67,7 +59,7 @@ function validarContrasena(campo) {
     const valor = campo.value;
 
     if (!valor) {
-        return mostrarError(campo, "La contraseña es obligatoria.");
+        return mostrarError(campo, "Campo obligatorio.");
     }
 
     if (valor.length < 4 || valor.length > 10) {
@@ -101,152 +93,51 @@ function validarRun(run) {
 }
 
 function validarRunCampo(campo) {
+    if (!campo.value.trim()) {
+        return mostrarError(campo, "Campo obligatorio.");
+    }
+
     if (!validarRun(campo.value)) {
-        return mostrarError(campo, "Ingresa un RUN válido, sin puntos ni guion.");
+        return mostrarError(campo, "RUN no válido.");
+    }
+
+    return mostrarError(campo, "");
+}
+
+function validarNumero(campo, requerido) {
+    const valor = campo.value.trim();
+
+    if (!valor) {
+        return requerido ? mostrarError(campo, "Campo obligatorio.") : mostrarError(campo, "");
+    }
+
+    const numero = Number(valor);
+
+    if (!Number.isFinite(numero) || numero < 0) {
+        return mostrarError(campo, "Debe ser un número mayor o igual a 0.");
+    }
+
+    return mostrarError(campo, "");
+}
+
+function validarEntero(campo, requerido) {
+    const valor = campo.value.trim();
+
+    if (!valor) {
+        return requerido ? mostrarError(campo, "Campo obligatorio.") : mostrarError(campo, "");
+    }
+
+    if (!/^\d+$/.test(valor)) {
+        return mostrarError(campo, "Debe ser un entero mayor o igual a 0.");
     }
 
     return mostrarError(campo, "");
 }
 
 function validarRegionComuna(form) {
-    const regionValida = validarTexto(form.elements.region, "La región", 100);
-    const comunaValida = validarTexto(form.elements.comuna, "La comuna", 100);
-
-    return regionValida && comunaValida;
-}
-
-function validarFormulario(form) {
-    let valido = true;
-
-    if (form.id === "form-login") {
-        valido = validarCorreoCampo(form.elements.correo) && valido;
-        valido = validarContrasena(form.elements.contrasena) && valido;
-    }
-
-    if (form.id === "form-contacto") {
-        valido = validarTexto(form.elements.nombre, "El nombre", 100) && valido;
-        valido = validarCorreoCampo(form.elements.correo, false) && valido;
-        valido = validarTexto(form.elements.comentario, "El comentario", 500) && valido;
-    }
-
-    if (form.id === "form-registro" || form.id === "form-admin-usuario") {
-        valido = validarRunCampo(form.elements.run) && valido;
-        valido = validarTexto(form.elements.nombre, "El nombre", 50) && valido;
-        valido = validarTexto(form.elements.apellidos, "Los apellidos", 100) && valido;
-        valido = validarCorreoCampo(form.elements.correo) && valido;
-        valido = validarTexto(form.elements.direccion, "La dirección", 300) && valido;
-        valido = validarRegionComuna(form) && valido;
-    }
-
-    if (form.id === "form-registro") {
-        valido = validarContrasena(form.elements.contrasena) && valido;
-    }
-
-    if (form.id === "form-admin-usuario") {
-        valido = validarTexto(form.elements.tipo, "El tipo de usuario", 30) && valido;
-    }
-
-    if (form.id === "form-producto") {
-        valido = validarCodigoProducto(form.elements.codigo) && valido;
-        valido = validarTexto(form.elements.nombre, "El nombre", 100) && valido;
-        valido = validarTexto(form.elements.descripcion, "La descripción", 500, false) && valido;
-        valido = validarNumero(form.elements.precio, "El precio", true) && valido;
-        valido = validarEntero(form.elements.stock, "El stock", true) && valido;
-        valido = validarEntero(form.elements.stockCritico, "El stock crítico", false) && valido;
-        valido = validarTexto(form.elements.categoria, "La categoría", 50) && valido;
-    }
-
+    let valido = validarTexto(form.elements.region, 100);
+    valido = validarTexto(form.elements.comuna, 100) && valido;
     return valido;
-}
-
-function validarNumero(campo, etiqueta, requerido) {
-    const valor = campo.value.trim();
-
-    if (!valor && !requerido) {
-        return mostrarError(campo, "");
-    }
-
-    if (!valor || Number.isNaN(Number(valor)) || Number(valor) < 0) {
-        return mostrarError(campo, `${etiqueta} debe ser un número mayor o igual a 0.`);
-    }
-
-    return mostrarError(campo, "");
-}
-
-function validarEntero(campo, etiqueta, requerido) {
-    const valor = campo.value.trim();
-
-    if (!valor && !requerido) {
-        return mostrarError(campo, "");
-    }
-
-    if (!/^\d+$/.test(valor)) {
-        return mostrarError(campo, `${etiqueta} debe ser un entero mayor o igual a 0.`);
-    }
-
-    return mostrarError(campo, "");
-}
-
-function validarCampo(form, campo) {
-    if (campo.name === "correo") {
-        return validarCorreoCampo(campo, form.id !== "form-contacto");
-    }
-
-    if (campo.name === "contrasena") {
-        return validarContrasena(campo);
-    }
-
-    if (campo.name === "run") {
-        return validarRunCampo(campo);
-    }
-
-    if (form.id === "form-producto") {
-        if (campo.name === "precio") {
-            return validarNumero(campo, "El precio", true);
-        }
-
-        if (campo.name === "stock") {
-            return validarEntero(campo, "El stock", true);
-        }
-
-        if (campo.name === "stockCritico") {
-            return validarEntero(campo, "El stock crítico", false);
-        }
-    }
-
-    if (campo.name === "nombre") {
-        return validarTexto(campo, "El nombre", form.id === "form-contacto" ? 100 : 50);
-    }
-
-    if (campo.name === "apellidos") {
-        return validarTexto(campo, "Los apellidos", 100);
-    }
-
-    if (campo.name === "direccion") {
-        return validarTexto(campo, "La dirección", 300);
-    }
-
-    if (campo.name === "comentario") {
-        return validarTexto(campo, "El comentario", 500);
-    }
-
-    if (campo.name === "descripcion") {
-        return validarTexto(campo, "La descripción", 500, false);
-    }
-
-    if (campo.name === "codigo") {
-        return validarCodigoProducto(campo);
-    }
-
-    if (campo.name === "categoria" || campo.name === "tipo") {
-        return validarTexto(campo, campo.name === "tipo" ? "El tipo de usuario" : "La categoría", 50);
-    }
-
-    if (campo.name === "region" || campo.name === "comuna") {
-        return validarTexto(campo, campo.name === "region" ? "La región" : "La comuna", 100);
-    }
-
-    return true;
 }
 
 function actualizarMensajeStock() {
@@ -258,25 +149,58 @@ function actualizarMensajeStock() {
         return;
     }
 
-    const tieneValores = stock.value !== "" && stockCritico.value !== "";
-    mensaje.textContent = tieneValores && Number(stock.value) <= Number(stockCritico.value)
+    mensaje.textContent = stock.value !== "" && stockCritico.value !== "" && Number(stock.value) <= Number(stockCritico.value)
         ? "Stock crítico"
         : "";
 }
 
+function validarFormulario(form) {
+    let valido = true;
+
+    if (form.id === "form-login") {
+        valido = validarCorreoCampo(form.elements.correo) && valido;
+        valido = validarContrasena(form.elements.contrasena) && valido;
+    }
+
+    if (form.id === "form-contacto") {
+        valido = validarTexto(form.elements.nombre, 100) && valido;
+        valido = validarCorreoCampo(form.elements.correo, false) && valido;
+        valido = validarTexto(form.elements.comentario, 500) && valido;
+    }
+
+    if (form.id === "form-registro" || form.id === "form-admin-usuario") {
+        valido = validarRunCampo(form.elements.run) && valido;
+        valido = validarTexto(form.elements.nombre, 50) && valido;
+        valido = validarTexto(form.elements.apellidos, 100) && valido;
+        valido = validarCorreoCampo(form.elements.correo) && valido;
+        valido = validarTexto(form.elements.direccion, 300) && valido;
+        valido = validarRegionComuna(form) && valido;
+    }
+
+    if (form.id === "form-registro") {
+        valido = validarContrasena(form.elements.contrasena) && valido;
+    }
+
+    if (form.id === "form-admin-usuario") {
+        valido = validarTexto(form.elements.tipo, 30) && valido;
+    }
+
+    if (form.id === "form-producto") {
+        valido = validarCodigoProducto(form.elements.codigo) && valido;
+        valido = validarTexto(form.elements.nombre, 100) && valido;
+        valido = validarTexto(form.elements.descripcion, 500, false) && valido;
+        valido = validarNumero(form.elements.precio, true) && valido;
+        valido = validarEntero(form.elements.stock, true) && valido;
+        valido = validarEntero(form.elements.stockCritico, false) && valido;
+        valido = validarTexto(form.elements.categoria, 50) && valido;
+        actualizarMensajeStock();
+    }
+
+    return valido;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("form").forEach((form) => {
-        form.querySelectorAll("[name]").forEach((campo) => {
-            campo.addEventListener("blur", () => validarCampo(form, campo));
-
-            if (["correo", "contrasena", "comentario", "precio", "stock", "stockCritico", "codigo"].includes(campo.name)) {
-                campo.addEventListener("input", () => {
-                    validarCampo(form, campo);
-                    actualizarMensajeStock();
-                });
-            }
-        });
-
         form.addEventListener("submit", (evento) => {
             if (form.id === "form-contacto") {
                 evento.preventDefault();
@@ -293,6 +217,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
-    actualizarMensajeStock();
 });
